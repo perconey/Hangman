@@ -11,8 +11,10 @@ namespace Hangman
     {
         static void Main(string[] args)
         {
-            var kb = new ConsoleKeyboard();
-            kb.Display();
+            //string choosedLetter;
+            //choosedLetter = Convert.ToString(Console.ReadKey().KeyChar);
+            //Console.WriteLine(choosedLetter);
+            //Console.ReadLine();
 
             Console.ReadKey();
         }

@@ -15,6 +15,9 @@ namespace Hangman
             //choosedLetter = Convert.ToString(Console.ReadKey().KeyChar);
             //Console.WriteLine(choosedLetter);
             //Console.ReadLine();
+            var r = new Round();
+            r.BeginAndAskForKeyword();
+            r.BeginGuessingStage();
 
             Console.ReadKey();
         }

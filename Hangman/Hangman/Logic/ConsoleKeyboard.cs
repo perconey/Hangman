@@ -8,7 +8,7 @@ namespace Hangman.Logic
 {
     class ConsoleKeyboard
     {
-        private List<KeyValuePair<char, bool>> _keyboardChars = new List<KeyValuePair<char, bool>>(28)
+        private KeyValuePair<char, bool>[] _keyboardChars = new KeyValuePair<char, bool>[29]
         {
            new KeyValuePair<char, bool>('q', false),//0
            new KeyValuePair<char, bool>('w', false),//1
@@ -47,7 +47,7 @@ namespace Hangman.Logic
         };
         private bool _isDisplayed;
 
-        public List<KeyValuePair<char, bool>> KeyboardChars { get => _keyboardChars; set => _keyboardChars = value; }
+        public KeyValuePair<char, bool>[] KeyboardChars { get => _keyboardChars; set => _keyboardChars = value; }
 
         public bool IsDisplayed { get => _isDisplayed; set => _isDisplayed = value; }
 
@@ -59,7 +59,14 @@ namespace Hangman.Logic
             {
                 if (element.Key != '/' && element.Key != '#')
                 {
-                    Console.Write(element.Key + " ");
+                    if(element.Value == true)
+                    {
+                        Console.WriteLine("   ");
+                    }
+                    else
+                    {
+                        Console.Write(element.Key + " ");
+                    }
                 }
                 else
                 {

@@ -61,7 +61,7 @@ namespace Hangman.Logic
                 {
                     if(element.Value == true)
                     {
-                        Console.WriteLine("   ");
+                        Console.Write("  ");
                     }
                     else
                     {

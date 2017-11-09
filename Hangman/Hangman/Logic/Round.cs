@@ -120,7 +120,11 @@ namespace Hangman.Logic
             {
                 Console.WriteLine("For guessing letter choose 1, for guessing word press 2");
                 {
+                   
                     option = Convert.ToInt16(Console.ReadLine());
+                    if (option != 1 || option != 2)
+                        option = 1;
+
                     switch (option)
                     {
                         case 1:

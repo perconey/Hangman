@@ -11,9 +11,22 @@ namespace Hangman.Logic
     {
         private String _keyWord;
         private ConsoleKeyboard _vKey = new ConsoleKeyboard();
+        private List<char> chars = new List<char>();
+
 
         internal ConsoleKeyboard VKey { get => _vKey; set => _vKey = value; }
-        public string KeyWord { get => _keyWord; set => _keyWord = value; }
+        public string KeyWord { get => _keyWord;
+            set
+            {
+                _keyWord = value;
+                foreach(char c in value)
+                {
+                    Chars.Add(c);
+                }
+            }
+        }
+
+        public List<char> Chars { get => chars; set => chars = value; }
 
         public int AwfulCharToNumConverter(char c)
         {
@@ -107,6 +120,11 @@ namespace Hangman.Logic
         }
 
         public Round()
+        {
+
+        }
+
+        public void ShowUnderscoreBuild()
         {
 
         }

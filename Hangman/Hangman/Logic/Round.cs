@@ -156,10 +156,14 @@ namespace Hangman.Logic
                 Console.Write("\n");
 
                 Console.WriteLine("For guessing letter choose 1, for guessing word press 2");
-                   
+                try
+                {
                     option = Convert.ToInt16(Console.ReadLine());
-                    if (option != 1 || option != 2)
-                        option = 1;
+                }catch(Exception ex)
+                {
+                    Console.WriteLine("Bad input! Choosing 1");
+                    option = 1;
+                }
 
                     switch (option)
                     {
@@ -168,6 +172,7 @@ namespace Hangman.Logic
 
                             Console.WriteLine("You have following letters available to use:");
                             VKey.Display();
+
                             choosedLetter = Convert.ToString(Console.ReadKey().KeyChar);
                             VKey.KeyboardChars[AwfulCharToNumConverter(Convert.ToChar(choosedLetter))] = new KeyValuePair<char, bool>(Convert.ToChar(choosedLetter), true);
                             Console.WriteLine("\n");

@@ -11,22 +11,26 @@ namespace Hangman.Logic
     {
         private String _keyWord;
         private ConsoleKeyboard _vKey = new ConsoleKeyboard();
-        private List<char> chars = new List<char>();
+        private List<KeyValuePair<char, bool>> _chars = new List<KeyValuePair<char, bool>>();
 
 
         internal ConsoleKeyboard VKey { get => _vKey; set => _vKey = value; }
         public string KeyWord { get => _keyWord;
             set
             {
-                _keyWord = value;
-                foreach(char c in value)
+                _keyWord = value.ToLower();
+                foreach(char c in _keyWord)
                 {
-                    Chars.Add(c);
+                    Chars.Add(new KeyValuePair<char, bool>(c, false));
                 }
             }
         }
 
-        public List<char> Chars { get => chars; set => chars = value; }
+        public List<KeyValuePair<char, bool>> Chars
+        {
+            get => _chars;
+            set => _chars = value;
+        }
 
         public int AwfulCharToNumConverter(char c)
         {
@@ -126,7 +130,17 @@ namespace Hangman.Logic
 
         public void ShowUnderscoreBuild()
         {
-
+            foreach(var el in Chars)
+            {
+                if(el.Value == false)
+                {
+                    Console.Write("_ ");
+                }
+                else
+                {
+                    Console.Write(el.Key + " ");
+                }
+            }
         }
 
         public void BeginGuessingStage()
@@ -136,8 +150,12 @@ namespace Hangman.Logic
             bool styknie = false;
             do
             {
+                Console.WriteLine("Your guessing progress");
+                Console.Write("\n");
+                ShowUnderscoreBuild();
+                Console.Write("\n");
+
                 Console.WriteLine("For guessing letter choose 1, for guessing word press 2");
-                {
                    
                     option = Convert.ToInt16(Console.ReadLine());
                     if (option != 1 || option != 2)
@@ -146,13 +164,35 @@ namespace Hangman.Logic
                     switch (option)
                     {
                         case 1:
+                            int i = 0;
+
                             Console.WriteLine("You have following letters available to use:");
                             VKey.Display();
-
                             choosedLetter = Convert.ToString(Console.ReadKey().KeyChar);
                             VKey.KeyboardChars[AwfulCharToNumConverter(Convert.ToChar(choosedLetter))] = new KeyValuePair<char, bool>(Convert.ToChar(choosedLetter), true);
                             Console.WriteLine("\n");
-                            break;
+                            var w = new List<int>();
+
+                            foreach(var el in Chars)
+                            {
+                                if (el.Key == Convert.ToChar(choosedLetter))
+                                {
+                                    w.Add(i);
+                                i++;
+                                }
+                                else
+                                {
+                                i++;
+                                }
+                            }
+
+                            foreach(int which in w)
+                            {
+                            Console.WriteLine(which);
+                                Chars[which] = new KeyValuePair<char, bool>(Convert.ToChar(choosedLetter), true);
+                            }
+
+                        break;
                         case 2:
                             Console.WriteLine("Type word below:");
                             guessedWord = Console.ReadLine();
@@ -163,9 +203,9 @@ namespace Hangman.Logic
                             }
                             break;
                     }
-                }
 
 
+                Console.Clear();
             } while (!styknie);
         }
 

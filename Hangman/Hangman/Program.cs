@@ -17,6 +17,7 @@ namespace Hangman
             //Console.ReadLine();
             var r = new Round();
             r.BeginAndAskForKeyword();
+            Console.Clear();
             r.BeginGuessingStage();
 
             Console.ReadKey();

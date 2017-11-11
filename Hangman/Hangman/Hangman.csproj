@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\ConsoleKeyboard.cs" />
+    <Compile Include="Logic\FailureIndicator.cs" />
     <Compile Include="Logic\Round.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

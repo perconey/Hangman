@@ -8,14 +8,27 @@ namespace Hangman.Logic
 {
     class FailureIndicator
     {
-        private int _stage;
+        private int _stage = 0;
 
         public int Stage { get => _stage; set => _stage = value; }
+
+        public void Reset()
+        {
+            Stage = 0;
+        }
+
+        public void BadGuessMade()
+        {
+            Stage++;
+        }
 
         public void ShowRightStage(int which)
         {
             switch(which)
             {
+                case 0:
+                    Stage0();
+                    break;
                 case 1:
                     Stage1();
                     break;
@@ -46,13 +59,33 @@ namespace Hangman.Logic
                 case 10:
                     Stage10();
                     break;
+                case 11:
+                    Stage11();
+                    break;
+                default:
+                    Console.WriteLine("BAD DRAWING INPUT");
+                    break;
             }
+        }
+
+        public void Stage0()
+        {
+            Console.WriteLine
+                (
+                    "           \n" +
+                    "           \n" +
+                    "           \n" +
+                    "           \n" +
+                    "           \n" +
+                    "           \n"
+                );
         }
 
         public void Stage1()
         {
             Console.WriteLine
                 (
+                    "           \n" +
                     "           \n" +
                     "           \n" +
                     "           \n" +
@@ -65,20 +98,23 @@ namespace Hangman.Logic
             Console.WriteLine
                 (
                     "           \n" +
-                    "           \n" +
-                    "           \n" +
-                    "   |        \n" +
+                    "   |       \n" +
+                    "   |       \n" +
+                    "   |       \n" +
+                    "   |       \n" +
                     "  /\\       \n"
                 );
+
         }
         public void Stage3()
         {
             Console.WriteLine
                 (
-                    "           \n" +
-                    "           \n" +
+                    "   _ _ _   \n" +
                     "   |       \n" +
-                    "   |        \n" +
+                    "   |       \n" +
+                    "   |       \n" +
+                    "   |       \n" +
                     "  /\\       \n"
                 );
         }
@@ -86,10 +122,11 @@ namespace Hangman.Logic
         {
             Console.WriteLine
                 (
-                    "           \n" +
-                    "    _       \n" +
+                    "   _ _ _   \n" +
+                    "   |/      \n" +
                     "   |       \n" +
-                    "   |        \n" +
+                    "   |       \n" +
+                    "   |       \n" +
                     "  /\\       \n"
                 );
         }
@@ -97,10 +134,11 @@ namespace Hangman.Logic
         {
             Console.WriteLine
                 (
-                    "           \n" +
-                    "    _ _      \n" +
+                    "   _ _ _   \n" +
+                    "   |/   |  \n" +
                     "   |       \n" +
-                    "   |        \n" +
+                    "   |       \n" +
+                    "   |       \n" +
                     "  /\\       \n"
                 );
 
@@ -109,10 +147,11 @@ namespace Hangman.Logic
         {
             Console.WriteLine
                 (
-                    "           \n" +
-                    "    _ _      \n" +
-                    "   |   |     \n" +
-                    "   |        \n" +
+                    "   _ _ _   \n" +
+                    "   |/   |  \n" +
+                    "   |    0  \n" +
+                    "   |       \n" +
+                    "   |       \n" +
                     "  /\\       \n"
                 );
 
@@ -121,24 +160,66 @@ namespace Hangman.Logic
         {
             Console.WriteLine
                 (
-                    "           \n" +
-                    "    _       \n" +
-                    "   |        \n" +
-                    "   |        \n" +
+                    "   _ _ _   \n" +
+                    "   |/   |  \n" +
+                    "   |    0  \n" +
+                    "   |    |  \n" +
+                    "   |       \n" +
                     "  /\\       \n"
                 );
 
         }
         public void Stage8()
         {
+            Console.WriteLine
+                (
+                    "   _ _ _   \n" +
+                    "   |/   |  \n" +
+                    "   |    0  \n" +
+                    "   |    |  \n" +
+                    "   |   /   \n" +
+                    "  /\\       \n"
+                );
 
         }
         public void Stage9()
         {
+            Console.WriteLine
+                (
+                    "   _ _ _   \n" +
+                    "   |/   |  \n" +
+                    "   |    0  \n" +
+                    "   |    |  \n" +
+                    "   |   / \\ \n" +
+                    "  /\\       \n"
+                );
 
         }
         public void Stage10()
         {
+            Console.WriteLine
+                (
+                    "   _ _ _   \n" +
+                    "   |/   |  \n" +
+                    "   |    0  \n" +
+                    "   |    |- \n" +
+                    "   |   / \\ \n" +
+                    "  /\\       \n"
+                );
+
+        }
+
+        public void Stage11()
+        {
+            Console.WriteLine
+                (
+                    "   _ _ _   \n" +
+                    "   |/   |  \n" +
+                    "   |    0  \n" +
+                    "   |   -|- \n" +
+                    "   |   / \\ \n" +
+                    "  /\\       \n"
+                );
 
         }
 

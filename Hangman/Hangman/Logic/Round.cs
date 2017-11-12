@@ -12,8 +12,10 @@ namespace Hangman.Logic
         private String _keyWord;
         private ConsoleKeyboard _vKey = new ConsoleKeyboard();
         private List<KeyValuePair<char, bool>> _chars = new List<KeyValuePair<char, bool>>();
-
-
+        private int _underscoreMarksCounter = 0;
+        private bool _winnerWinnerChickenDinner = false;
+        private FailureIndicator failure = new FailureIndicator();
+        
         internal ConsoleKeyboard VKey { get => _vKey; set => _vKey = value; }
         public string KeyWord { get => _keyWord;
             set
@@ -21,6 +23,7 @@ namespace Hangman.Logic
                 _keyWord = value.ToLower();
                 foreach(char c in _keyWord)
                 {
+                    UnderscoreMarksCounter++;
                     Chars.Add(new KeyValuePair<char, bool>(c, false));
                 }
             }
@@ -31,6 +34,8 @@ namespace Hangman.Logic
             get => _chars;
             set => _chars = value;
         }
+        public bool WinnerWinnerChickenDinner { get => _winnerWinnerChickenDinner; set => _winnerWinnerChickenDinner = value; }
+        public int UnderscoreMarksCounter { get => _underscoreMarksCounter; set => _underscoreMarksCounter = value; }
 
         public int AwfulCharToNumConverter(char c)
         {
@@ -150,10 +155,12 @@ namespace Hangman.Logic
             bool styknie = false;
             do
             {
-                Console.WriteLine("Your guessing progress");
+                Console.WriteLine("\t\tYour guessing progress:");
                 Console.Write("\n");
-                ShowUnderscoreBuild();
+                Console.Write("\t\t  "); ShowUnderscoreBuild();
                 Console.Write("\n");
+                failure.ShowRightStage(failure.Stage);
+
 
                 Console.WriteLine("For guessing letter choose 1, for guessing word press 2");
                 try
@@ -190,11 +197,18 @@ namespace Hangman.Logic
                                 i++;
                                 }
                             }
-
-                            foreach(int which in w)
+                            bool isEmpty = !w.Any();
+                            if(!isEmpty)
                             {
-                            Console.WriteLine(which);
-                                Chars[which] = new KeyValuePair<char, bool>(Convert.ToChar(choosedLetter), true);
+                                foreach (int which in w)
+                                {
+                                    Chars[which] = new KeyValuePair<char, bool>(Convert.ToChar(choosedLetter), true);
+                                UnderscoreMarksCounter--;
+                                }
+                            }
+                            else
+                            {
+                                failure.BadGuessMade();
                             }
 
                         break;
@@ -204,21 +218,59 @@ namespace Hangman.Logic
                             if(guessedWord == KeyWord)
                             {
                                 Console.WriteLine("YOU GUESSED");
+                                WinnerWinnerChickenDinner = true;
                                 styknie = true;
                             }
+                        else
+                        {
+                            failure.BadGuessMade();
+                        }
                             break;
                     }
 
+                if(failure.Stage == 11)
+                {
+                    styknie = true;
+                }
 
+                if(UnderscoreMarksCounter == 0)
+                {
+                    styknie = true;
+                    WinnerWinnerChickenDinner = true;
+                }
                 Console.Clear();
             } while (!styknie);
+            if(WinnerWinnerChickenDinner)
+            {
+                Console.WriteLine("YOU WON!");
+            }
+            else
+            {
+                Console.WriteLine("YOU LOST!");
+            }
+            Console.WriteLine("Press any key to play one more time");
+            Console.ReadKey();
+            Console.Clear();
+            Reset();
+
         }
 
+        public void Reset()
+        {
+            UnderscoreMarksCounter = 5;
+            VKey.Reset();
+            WinnerWinnerChickenDinner = false;
+            Chars.Clear();
+            failure.Reset();
+            BeginAndAskForKeyword(); 
+        }
         public void BeginAndAskForKeyword()
         {
             Console.WriteLine("Welcome to Console Hangman! \n" +
                 " Enter keyword to be guessed below:");
             KeyWord = Console.ReadLine();
+            Console.Clear();
+            BeginGuessingStage();
         }
 
     }

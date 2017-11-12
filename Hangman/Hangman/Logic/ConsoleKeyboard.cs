@@ -86,5 +86,46 @@ namespace Hangman.Logic
                 }
             };
         }
+
+        public void Reset()
+        {
+            KeyboardChars = new KeyValuePair<char, bool>[29]
+            {
+                new KeyValuePair<char, bool>('q', false),//0
+           new KeyValuePair<char, bool>('w', false),
+           new KeyValuePair<char, bool>('e', false),
+           new KeyValuePair<char, bool>('r', false),
+           new KeyValuePair<char, bool>('t', false),
+           new KeyValuePair<char, bool>('y', false),
+           new KeyValuePair<char, bool>('u', false),
+           new KeyValuePair<char, bool>('i', false),
+           new KeyValuePair<char, bool>('o', false),
+           new KeyValuePair<char, bool>('p', false),
+
+           new KeyValuePair<char, bool>('/', false),
+
+           new KeyValuePair<char, bool>('a', false),
+           new KeyValuePair<char, bool>('s', false),
+           new KeyValuePair<char, bool>('d', false),
+           new KeyValuePair<char, bool>('f', false),
+           new KeyValuePair<char, bool>('g', false),
+           new KeyValuePair<char, bool>('h', false),
+           new KeyValuePair<char, bool>('j', false),
+           new KeyValuePair<char, bool>('k', false),
+           new KeyValuePair<char, bool>('l', false),
+
+           new KeyValuePair<char, bool>('/', false),
+
+           new KeyValuePair<char, bool>('z', false),
+           new KeyValuePair<char, bool>('x', false),
+           new KeyValuePair<char, bool>('c', false),
+           new KeyValuePair<char, bool>('v', false),
+           new KeyValuePair<char, bool>('b', false),
+           new KeyValuePair<char, bool>('n', false),
+           new KeyValuePair<char, bool>('m', false),
+
+           new KeyValuePair<char, bool>('#', false) 
+            };
+        }
     }
 }
